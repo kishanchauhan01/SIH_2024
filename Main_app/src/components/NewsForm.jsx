@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useIndianStates, useIndianDistrict } from '../hooks'
 
 // Form component
 const NewsForm = () => {
@@ -10,20 +11,45 @@ const NewsForm = () => {
         city: '',
         periodicity: ''
     });
+ 
 
+    
+    //* Fetch districts when state changes
+    const districtData = useIndianDistrict(formData.state);
+    const [districts, setDistricts] = useState([]);
+
+    useEffect(() => {
+        if (districtData && Array.isArray(districtData)) {   //! use of custome Hooks in useEffect hooks
+            setDistricts(districtData);
+        } 
+    }, [formData.state , districtData ]);
+    // console.log(districts) 
+    
+    
     // Days of the week for dropdown
     const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
     // Handle form data change
     const handleChange = (e) => {
-        const { name, value } = e.target;
+        let { name, value } = e.target;
+        // console.log(name)
+        // name = name.toLowerCase();
+        // console.log(value)
         setFormData({
             ...formData,
             [name]: value
         });
     };
 
+    const handleStateChange = (event) => {
+        setFormData({...formData , state: event.target.value });
+    };
+
+
+    const stateData = useIndianStates();  
+
     const [message, setMessage] = useState('')
+ 
 
     // Handle form submit
     const handleSubmit = async (e) => {
@@ -43,7 +69,7 @@ const NewsForm = () => {
 
             if (response.ok) {
                 setMessage(data.message);
-            }else{
+            } else {
                 setMessage("failed by some reason don't know what's happen ");
             }
 
@@ -66,7 +92,7 @@ const NewsForm = () => {
                     onChange={handleChange}
                     style={styles.input}
                 />
-                 
+
 
                 <label style={styles.label}>News Title Name:</label>
                 <input
@@ -78,22 +104,33 @@ const NewsForm = () => {
                 />
 
                 <label style={styles.label}>State:</label>
-                <input
-                    type="text"
-                    name="state"
+                <select
+                    name="State"
                     value={formData.state}
-                    onChange={handleChange}
-                    style={styles.input}
-                />
+                    onChange={handleStateChange}
+                    style={styles.dropdown}
+                >
+                    <option value="" disabled>Select a State</option>
+                    {stateData.map((state) => (
+                        <option key={state} value={state}>{state}</option>
+                    ))}
+                </select>
 
-                <label style={styles.label}>City:</label>
-                <input
-                    type="text"
+                <label style={styles.label}>City:</label> 
+                <select
                     name="city"
                     value={formData.city}
                     onChange={handleChange}
-                    style={styles.input}
-                />
+                    style={styles.dropdown} 
+                    disabled ={formData.state === '' ? true : false}
+                >
+                    <option value="" disabled>Select a City</option>
+                    {districts.map((state) => (
+                        <option key={state} value={state}>{state}</option>
+                    ))}
+                </select>
+
+
 
                 <label style={styles.label}>Periodicity:</label>
                 <select

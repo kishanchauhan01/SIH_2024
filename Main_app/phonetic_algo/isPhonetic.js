@@ -1,5 +1,6 @@
 import pool from "../DB/db.js";
 import phoneticCode from "./test.js";
+import getAllRows from "../DB/getAllRows.js"
 
 const isPhonetic = async (title) => {
     try {
@@ -12,19 +13,25 @@ const isPhonetic = async (title) => {
         `;
 
         const response = await pool.query(query, [phonetic_code]);
-        console.log(phonetic_code);
+        // console.log(response.rows.phonetic_code);
+        const totalRows = await getAllRows();
+        const currenRows = response.rowCount;
+        const similarSoundingProb = parseFloat(((currenRows/totalRows) * 1000).toFixed(2));
+
+
         // if the rows is > 0 then there is same phonetic code inside DB
-        if (response.rows.length > 0) {
-            console.log(response.rows[0].title_name);
+        console.log(similarSoundingProb);
+        if (similarSoundingProb > 0.45) {
+            // console.log(socreOfPhonetic);
             return {
-                message: `There is similar sounding data and that is ${response.rows[0].title_name}`,
-                found: true
+                message: `There is similar sounding data and that is ${response.rows[0].title_name} with prbability ${similarSoundingProb}`,
+                found: true,
             };
         } else {
             return {
-                message: `There is no similar sounding data`,
-                found: false
-            }
+                message: `There is no similar sounding data ${response.rows[0].title_name} is present and probability ${similarSoundingProb} ${response.rows[0].title_name}`,
+                found: false,
+            };
         }
     } catch (err) {
         // log the err
