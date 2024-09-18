@@ -2,7 +2,7 @@
 
 <h3>1. First Download the project as zip file</h3>
     <b>E.G:-</b>
-    <img src="./first.png">
+    <iframe src="https://drive.google.com/file/d/1f2ZIuKEJqKbwohGmREGYjStg6CmcO_7i/preview" width="640" height="480" allow="autoplay"></iframe>
 
 <h3>2. After unziping the file first you have to install all the dependencies using this command</h3>
 
