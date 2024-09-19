@@ -9,13 +9,6 @@ function App() {
       <NewsForm />
       {/* <TailwindComponents /> */}
     </>
-
-
-  //  durgesh
-  // ansh 
-//rgegeger
-//ereerg
-  //helllo theree
   )
 }
 
