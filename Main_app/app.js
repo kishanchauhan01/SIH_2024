@@ -13,10 +13,9 @@ app.use(express.json());
 app.use(cors());
 
 app.post("/api/submit", async (req, res) => {
-    const formdata = req.body;
-    console.log(formdata);
+    const formdata = req.body; 
     const is_exist = await isExist(formdata.newsTitle);
-
+    console.log(formdata);
     //check if the user's title is already exist or not
     if (is_exist.found == true) {
         res.status(200).json({ message: `${is_exist.message}` });
