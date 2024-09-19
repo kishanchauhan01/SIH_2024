@@ -6,7 +6,7 @@ import isDisallowed from "./Disallowed/isDisallowed.js";
 import isExist from "./DB/alreadyExist.js";
 
 const app = express();
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 3000;
 
 //middlwar
 app.use(express.json());
