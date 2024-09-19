@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useIndianStates, useIndianDistrict } from '../hooks'
+import { useIndianStates, useIndianDistrict } from '../../hooks'
 
 // Form component
 const NewsForm = () => {
