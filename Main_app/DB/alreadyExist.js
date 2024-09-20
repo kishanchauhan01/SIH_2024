@@ -9,7 +9,6 @@ const isExist = async (title) => {
     const upperCaseTitle = title.toUpperCase();
     const result1 = await pool.query(query, [upperCaseTitle]);
 
-    console.log(result1.rows[0].title_name);
     if (result.rowCount > 0 || result1.rowCount > 0) {
         return {
             message: `${title} is already exist`,

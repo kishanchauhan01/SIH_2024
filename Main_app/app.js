@@ -4,6 +4,7 @@ import cors from "cors";
 import isPhonetic from "./phonetic_algo/isPhonetic.js";
 import isDisallowed from "./Disallowed/isDisallowed.js";
 import isExist from "./DB/alreadyExist.js";
+import createUser from "./DB/createUser.js";
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -17,12 +18,12 @@ app.post("/api/submit", async (req, res) => {
     const is_exist = await isExist(formdata.newsTitle);
     console.log(formdata);
     console.log(is_exist.message);
-    
+
     //check if the user's title is already exist or not
-    if (is_exist.found == true) {
-        console.log(is_exist.message);
+    if (is_exist.found) {
+        console.log("is_exist", is_exist.message);
         res.status(200).json({ message: `${is_exist.message}` });
-    } else {
+    } else if (!is_exist.found) {
         try {
             // step 1:- First check for disallowed words
             const disallowed = await isDisallowed(formdata.newsTitle);
@@ -38,8 +39,16 @@ app.post("/api/submit", async (req, res) => {
                         message: `There is similar sounding title and that is  ${result.message}`,
                     });
                 } else {
-                    console.log(result.message);
-                    res.status(200).json({ message: `${result.message}` });
+                    // console.log(result.message);
+                    // res.status(200).json({ message: `${result.message}` });
+                    try {
+                        const appendData = await createUser(formdata);
+                        console.log(appendData);
+                        res.status(200).json({ message: appendData });
+                    } catch (err) {
+                        console.log("error while inserting in DB", err);
+                        res.status(500).json({ message: "server error" });
+                    }
                 }
             }
         } catch (err) {
