@@ -22,13 +22,13 @@ app.post("/api/submit", async (req, res) => {
 
     const checkDataResult = checkValues(formdata);
 
-    if (checkDataResult.value == true) {
+    if (checkDataResult.value == false) {
         console.log("hello", checkDataResult.message);
         res.status(200).json({ message: `${checkDataResult.message}` });
     }
 
     //check if the user's title is already exist or not
-    if (is_exist.found || checkDataResult.value) {
+    if (is_exist.found && checkDataResult.value) {
         console.log("is_exist", is_exist.message);
         console.log(checkDataResult.message);
         res.status(200).json({ message: `${is_exist.message}` });

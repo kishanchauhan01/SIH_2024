@@ -1,19 +1,19 @@
 const checkValues = (data) => {
     if (
-        data.username == "" &&
-        data.newsTitle == "" &&
-        data.state == "" &&
-        data.city == "" &&
+        data.username == "" ||
+        data.newsTitle == "" ||
+        data.state == "" ||
+        data.city == "" ||
         data.periodicity == ""
     ) {
         return {
             message: `All fields are required`,
-            value: true,
+            value: false,
         };
     } else {
         return {
             message: `ok`,
-            value: false,
+            value: true,
         }
     }
 };
