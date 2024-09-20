@@ -5,6 +5,7 @@ import isPhonetic from "./phonetic_algo/isPhonetic.js";
 import isDisallowed from "./Disallowed/isDisallowed.js";
 import isExist from "./DB/alreadyExist.js";
 import createUser from "./DB/createUser.js";
+import checkValues from "./checkData/checkData.js";
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -19,9 +20,17 @@ app.post("/api/submit", async (req, res) => {
     console.log(formdata);
     console.log(is_exist.message);
 
+    const checkDataResult = checkValues(formdata);
+
+    if (checkDataResult.value == true) {
+        console.log("hello", checkDataResult.message);
+        res.status(200).json({ message: `${checkDataResult.message}` });
+    }
+
     //check if the user's title is already exist or not
-    if (is_exist.found) {
+    if (is_exist.found || checkDataResult.value) {
         console.log("is_exist", is_exist.message);
+        console.log(checkDataResult.message);
         res.status(200).json({ message: `${is_exist.message}` });
     } else if (!is_exist.found) {
         try {
