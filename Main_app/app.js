@@ -13,30 +13,33 @@ app.use(express.json());
 app.use(cors());
 
 app.post("/api/submit", async (req, res) => {
-    const formdata = req.body; 
+    const formdata = req.body;
     const is_exist = await isExist(formdata.newsTitle);
     console.log(formdata);
+    console.log(is_exist.message);
+    
     //check if the user's title is already exist or not
     if (is_exist.found == true) {
+        console.log(is_exist.message);
         res.status(200).json({ message: `${is_exist.message}` });
     } else {
         try {
             // step 1:- First check for disallowed words
             const disallowed = await isDisallowed(formdata.newsTitle);
             if (disallowed.found == true) {
+                console.log(disallowed.message);
                 res.status(200).json({ message: `${disallowed.message}` });
-            } else {
+            } else if (disallowed.found == false) {
                 //If there is no any disallowed words in user's title then
                 // go for similar sound algo
                 const result = await isPhonetic(formdata.newsTitle);
-                if (!result.found) {
+                if (result.prob > 0.25) {
                     res.status(200).json({
-                        message: `${result.message}`,
+                        message: `There is similar sounding title and that is  ${result.message}`,
                     });
                 } else {
-                    res.status(200).json({
-                        message: `${result.message}`,
-                    });
+                    console.log(result.message);
+                    res.status(200).json({ message: `${result.message}` });
                 }
             }
         } catch (err) {

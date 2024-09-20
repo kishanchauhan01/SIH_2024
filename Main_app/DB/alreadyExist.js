@@ -1,11 +1,18 @@
 import pool from "./db.js";
 
 const isExist = async (title) => {
-    const query = `SELECT title_name FROM customer WHERE title_name = $1`;
-    const result = await pool.query(query, [title]);
-    if (result.rowCount > 0) {
+    console.log(title.toUpperCase());
+    const query = `SELECT * FROM customer WHERE title_name = $1`;
+    //for the as it is title from user
+    let result = await pool.query(query, [title]);
+    //for the uppercase check
+    const upperCaseTitle = title.toUpperCase();
+    const result1 = await pool.query(query, [upperCaseTitle]);
+
+    console.log(result1.rows[0].title_name);
+    if (result.rowCount > 0 || result1.rowCount > 0) {
         return {
-            message: `${result.rows[0].title_name} is already exist`,
+            message: `${title} is already exist`,
             found: true,
         };
     } else {
@@ -13,6 +20,7 @@ const isExist = async (title) => {
             message: "not found",
             found: false,
         };
+
     }
 };
 
