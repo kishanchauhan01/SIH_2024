@@ -9,7 +9,8 @@ const NewsForm = () => {
         newsTitle: '',
         state: '',
         city: '',
-        periodicity: ''
+        periodicity: '',
+        hindiTitle:""
     });
  
 
@@ -84,7 +85,7 @@ const NewsForm = () => {
         <div style={styles.container}>
             <h2 style={styles.header}>Submit News Information</h2>
             <form onSubmit={handleSubmit} style={styles.form}>
-                <label style={styles.label}>Username:</label>
+                <label style={styles.label}>Owner name:</label>
                 <input
                     type="text"
                     name="username"
@@ -99,6 +100,15 @@ const NewsForm = () => {
                     type="text"
                     name="newsTitle"
                     value={formData.newsTitle}
+                    onChange={handleChange}
+                    style={styles.input}
+                />
+
+                <label style={styles.label}>Hindi Title Name:</label>
+                <input
+                    type="text"
+                    name="hindiTitle"
+                    value={formData.hindiTitle}
                     onChange={handleChange}
                     style={styles.input}
                 />
