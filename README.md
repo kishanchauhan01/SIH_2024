@@ -1,22 +1,19 @@
 # SIH_2024
 
-<h3>1. First Download the project as zip file</h3>
-    <b>E.G:-</b>
-    <img src="https://drive.google.com/file/d/1f2ZIuKEJqKbwohGmREGYjStg6CmcO_7i/view?usp=sharing">
+<h3>1. First Clone the project or download the zip file</h3>
 
-<h3>2. After unziping the file first you have to install all the dependencies using this command</h3>
+<h3>2. After cloning the repo or unzipping the zip file you have to download all the node module dependencies using the following command in the terminal <br> <br> Note: make sure you are in main_app directory before running the below command in your terminal</h3>
 
 ```bash
 npm i
 ```
 
-<h3>After that you have to download a Python library called metaphone using the command </h3>
-
-<p>for more dtail check out:- <a href="https://pypi.org/project/Metaphone/">Click Here</a></p>
+<h3>3. After that, you have to download a Python library called metaphone using the following command </h3>
 
 ```bash
 pip3 install metaphone
 ```
+<p>for more dtail check out:- <a href="https://pypi.org/project/Metaphone/">Click Here</a></p>
 
 * Note: If you use Linux or macOs then first create a virtual environment of python and then install this library
 * For creating virtual environment
@@ -24,4 +21,13 @@ pip3 install metaphone
     ```bash
     python3 -m venv .<environment_Name>
     ```
+<h3>4. Now, you have just to run the command </h3>
+
+```bash
+npm run dev
+```
+<b>AND</b>
+```bash
+npm start
+```
 
