@@ -1,7 +1,7 @@
 # SIH_2024
 ## A basic preview of our project:-
 
-<img src="https://i.postimg.cc/LX6VMtgQ/Screenshot-from-2024-09-29-22-44-21.png">
+[![Screenshot-from-2024-09-29-22-44-21.png](https://i.postimg.cc/LX6VMtgQ/Screenshot-from-2024-09-29-22-44-21.png)](https://postimg.cc/hJ6mL7rV)
 
 <h3>1. First Clone the project or download the zip file</h3>
 
